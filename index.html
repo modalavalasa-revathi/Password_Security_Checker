@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Password Security Checker</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f2f2f2;
+text-align:center;
+margin-top:80px;
+}
+
+.box{
+background:white;
+width:400px;
+margin:auto;
+padding:30px;
+border-radius:10px;
+box-shadow:0px 0px 10px gray;
+}
+
+input[type="password"]{
+padding:10px;
+width:80%;
+margin:10px;
+}
+
+button{
+padding:10px 20px;
+background:#007bff;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+margin:5px;
+}
+
+.result{
+font-size:20px;
+font-weight:bold;
+margin-top:10px;
+}
+
+.bar{
+width:100%;
+background:#ddd;
+height:20px;
+border-radius:5px;
+margin-top:10px;
+}
+
+.fill{
+height:20px;
+border-radius:5px;
+}
+
+.showpass{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:5px;
+margin-top:5px;
+}
+
+.generated{
+margin-top:15px;
+font-weight:bold;
+color:green;
+}
+
+ul{
+text-align:left;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Password Security Checker</h2>
+
+<form method="POST">
+
+<input type="password" id="password" name="password" placeholder="Enter Password">
+
+<label class="showpass">
+<input type="checkbox" onclick="togglePassword()"> Show Password
+</label>
+
+<br>
+
+<button type="submit">Check Password</button>
+
+<button type="submit" name="generate">Generate Secure Password</button>
+
+</form>
+
+{% if generated_password %}
+
+<div class="generated">
+Generated Password: {{generated_password}}
+</div>
+
+{% endif %}
+
+{% if result %}
+
+<div class="result" style="color: {{color}}">
+Password Strength: {{result}}
+</div>
+
+<div class="bar">
+<div class="fill" style="width:{{width}}; background:{{color}};"></div>
+</div>
+
+<br>
+
+<div style="color: {{breach_color}}; font-weight:bold;">
+{{breach_message}}
+</div>
+
+<h4>Suggestions to Improve:</h4>
+
+<ul>
+{% for s in suggestions %}
+<li>{{s}}</li>
+{% endfor %}
+</ul>
+
+{% endif %}
+
+</div>
+
+<script>
+
+function togglePassword() {
+
+var x = document.getElementById("password");
+
+if (x.type === "password") {
+x.type = "text";
+}
+else {
+x.type = "password";
+}
+
+}
+
+</script>
+
+</body>
+
+</html>
